@@ -19,7 +19,7 @@ ps -fp 1 $fmt | head -1
 gawk  '/AnonHugePages:[ \t]+[1-9]/ { if($2>4){ kb[FILENAME] += $2 } }
 END{ for (a in kb){
 	system("ps --no-header -fp " gensub(/.*\/([0-9]+).*/, "\\1", "g", a) "'" $fmt"'");
-	print "  -> AnonHugePages:",kb[a]/1024.0,"MB"
+	printf("  -> AnonHugePages: %8.01f MB\n",kb[a]/1024.0)
      }
 }' /proc/*/smaps
 exit 0
