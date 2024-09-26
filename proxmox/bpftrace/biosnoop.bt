@@ -1,0 +1,57 @@
+#!/usr/bin/env bpftrace
+/*
+ * biosnoop.bt   Block I/O tracing tool, showing per I/O latency.
+ *               For Linux, uses bpftrace, eBPF.
+ * tested on: Proxmox VE, kernel: 6.8.12-2-pve
+ *
+ * Modified version: added SECTOR, NR_SEC, NR_SEC_KB
+ * To see structures, run: bpftrace -l 'tracepoint:block:block_bio_complete' -v
+ * 
+ * based on: https://github.com/bpftrace/bpftrace/blob/c0670aa1051650830fed87949e68559a7bbc964f/tools/biosnoop.bt
+ * This is a bpftrace version of the bcc tool of the same name.
+ *
+ * 10-Dec-2023	Costa Shulyupin	Switched to block tracepoints.
+ * 15-Nov-2017	Brendan Gregg	Created this.
+ */
+
+#ifndef BPFTRACE_HAVE_BTF
+#include <linux/blkdev.h>
+#include <linux/blk-mq.h>
+#endif
+
+BEGIN
+{
+	printf("%-12s %-7s %-16s %-6s %7s %12s %6s %6s\n", "TIME(ms)", "DEVICE", "COMM", "PID", "LAT(ms)", "SECTOR", "NR_SEC", "NR_SEC_KB");
+}
+
+tracepoint:block:block_bio_queue
+{
+	@start[args->dev, args->sector] = nsecs;
+	@iopid[args->dev, args->sector] = pid;
+	@iocomm[args->dev, args->sector] = comm;
+}
+
+tracepoint:block:block_rq_complete,
+tracepoint:block:block_bio_complete
+/@start[args->dev, args->sector]/
+{
+	printf("%-12u %4d:%-2d %-16s %-6d %7d %12d %6u %6u\n",
+		elapsed / 1e6,
+		// like MAJOR(dev), MINOR(dev):
+		args->dev >> 20, args->dev & 0xfffff,
+		@iocomm[args->dev, args->sector],
+		@iopid[args->dev, args->sector],
+		(nsecs - @start[args->dev, args->sector]) / 1e6,
+		args->sector, args->nr_sector, args->nr_sector/2);
+
+	delete(@start[args->dev, args->sector]);
+	delete(@iopid[args->dev, args->sector]);
+	delete(@iocomm[args->dev, args->sector]);
+}
+
+END
+{
+	clear(@start);
+	clear(@iopid);
+	clear(@iocomm);
+}
