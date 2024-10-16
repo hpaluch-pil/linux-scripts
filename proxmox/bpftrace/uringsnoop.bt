@@ -1,0 +1,16 @@
+#!/usr/bin/env bpftrace
+/*
+ * Tracing io_uring Work - you have to run VM that now uses io_uring as default
+ * Tested on: proxmox-kernel-6.8.12-2-pve-signed, bpftrace-0.17.0-1
+ */
+
+BEGIN
+{
+ printf("%-15s %-5s %-16s %s %s\n", "TIME", "PID", "COMM", "RW", "OP");
+}
+
+// to see "args" run: bpftrace -vl 'tracepoint:io_uring:io_uring_queue_async_work'
+tracepoint:io_uring:io_uring_queue_async_work
+{
+ printf("%-15s %-5d %-16s %d %s\n",strftime("%H:%M:%S.%f", nsecs),pid,comm,args->rw,str(args->op_str));
+}
