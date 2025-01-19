@@ -21,6 +21,7 @@ gsettings set org.gnome.desktop.interface enable-animations false
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
 # Ptyxis terminal
 gsettings set org.gnome.Ptyxis default-columns 120
+gsettings set org.gnome.Ptyxis default-rows 34
 gsettings set org.gnome.Ptyxis restore-window-size false
 
 # commented out - too destructive
