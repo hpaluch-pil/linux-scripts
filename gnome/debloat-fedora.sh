@@ -30,6 +30,9 @@ dnf remove fwupd'*'
 
 # Disable remote gnome software and/or flatpak
 dnf remove gnome-software flatpak
+# Another bloat not needed when using just CLI
+dnf remove PackageKit
+rm -rf /var/cache/PackageKit
 
 # Geoclue is serious risk - getting your precise location at boot
 systemctl mask geoclue
@@ -37,7 +40,7 @@ systemctl mask geoclue
 dnf remove fpaste sane'*' sssd'*'
 
 # under Hypervisor kernel firmware is not needed (most of time).
-[ -n `virt-what` ] || {
+[ -z `virt-what` ] || {
 	dnf remove '*'-firmware-'*'
 }
 exit 0
