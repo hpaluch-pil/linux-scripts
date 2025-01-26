@@ -1,6 +1,7 @@
 
 // disable annoying Translation popup
 pref("browser.translations.automaticallyPopup", false);
+pref("browser.translations.panelShown", false);
 
 // disable detectportal.firefox.com
 // https://support.mozilla.org/en-US/questions/1157121
