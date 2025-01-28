@@ -3,6 +3,9 @@
 pref("browser.translations.automaticallyPopup", false);
 pref("browser.translations.panelShown", false);
 
+// disable "Add Application" bar, https://superuser.com/questions/363827/how-can-i-disable-add-application-for-mailto-links-bar-in-firefox
+pref("network.protocol-handler.external.mailto", false);
+
 // disable detectportal.firefox.com
 // https://support.mozilla.org/en-US/questions/1157121
 pref("network.captive-portal-service.enabled", false);
