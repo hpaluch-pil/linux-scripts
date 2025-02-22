@@ -2,6 +2,9 @@
 // Telemetry http://forums.mozillazine.org/viewtopic.php?p=14289125#p14289125
 pref("toolkit.telemetry.archive.enabled", false);
 
+// unhide protocol http(s):// in address bar
+pref("browser.urlbar.trimURLs", false);
+
 // disable annoying Translation popup
 pref("browser.translations.automaticallyPopup", false);
 pref("browser.translations.panelShown", false);
