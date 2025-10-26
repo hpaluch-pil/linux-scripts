@@ -29,7 +29,7 @@ pref("dom.push.enabled", false);
 pref("dom.push.connection.enabled", false);
 pref("dom.push.serverURL", "");
 
-// disable "spnsored" buttons on new tab (it directly contants
+// disable "sponsored" buttons on new tab (it directly contacts
 // sponsors servers!).
 pref("browser.newtabpage.activity-stream.showSponsoredCheckboxes", false);
 pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
