@@ -29,3 +29,12 @@ pref("dom.push.enabled", false);
 pref("dom.push.connection.enabled", false);
 pref("dom.push.serverURL", "");
 
+// disable "spnsored" buttons on new tab (it directly contants
+// sponsors servers!).
+pref("browser.newtabpage.activity-stream.showSponsoredCheckboxes", false);
+pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
+
+// disable DNS prefetch of all your bookmarks:
+pref("network.prefetch-next", false);
+pref("dom.prefetch_dns_for_anchor_http_document", false);
+pref("dom.prefetch_dns_for_anchor_https_document", false);
