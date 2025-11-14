@@ -4,5 +4,5 @@
 set -xeuo pipefail
 
 # fastfetch - clone of neofetch, ncdu - disk usage utility
-sudo dnf install inxi fastfetch jq mc lynx ncdu
+sudo dnf install fastfetch jq mc lynx ncdu
 exit 0
