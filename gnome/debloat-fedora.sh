@@ -40,6 +40,7 @@ systemctl mask geoclue
 dnf remove fpaste sane'*' sssd'*'
 
 # under Hypervisor kernel firmware is not needed (most of time).
+rpm -q virt-what || dnf install virt-what
 [ -z `virt-what` ] || {
 	dnf remove '*'-firmware-'*'
 }
