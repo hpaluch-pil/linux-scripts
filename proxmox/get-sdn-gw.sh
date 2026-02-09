@@ -3,7 +3,6 @@
 set -euo pipefail
 zone=
 subnet=
-vmid=
 ipam_file=/etc/pve/sdn/pve-ipam-state.json
 
 errx ()
@@ -48,9 +47,9 @@ echo " $all_zones " | grep -F -q " $zone " ||
        	errx "Invalid zone '$zone' specified. Valid zones are: $all_zones"
 
 # second check for Subnet under specified zone
-[ -n "$subnet" ] || errx "Missing required argument -s subnet (for example: '192.168.122.0/24')"
 all_subnets=$( jq --arg zone "$zone"  -r '.zones | .[$zone].subnets | keys | @tsv' < $ipam_file | tr '\t' ' ' )
 [ -n "$all_subnets" ] || errx "No subnet found for zone '$zone'"
+[ -n "$subnet" ] || errx "Missing required argument -s subnet. Use one of: $all_subnets "
 echo " $all_subnets " | grep -F -q " $subnet " ||
        	errx "Invalid subnet '$subnet' for zone '$zone' specified. Valid subnets are: $all_subnets"
 
