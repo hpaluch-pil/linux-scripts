@@ -76,7 +76,7 @@ END {
 	}
 }
 
-# Prints error and exists
+# Print error on stderr and exit
 function errx(msg){
 	# NOTE: filename (/dev/stderr) MUST be quoted!
 	printf("ERROR: %s\n", msg) > "/dev/stderr"
