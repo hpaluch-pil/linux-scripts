@@ -23,6 +23,8 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 
 gsettings set org.gnome.Ptyxis default-columns 120
 gsettings set org.gnome.Ptyxis default-rows 34
 gsettings set org.gnome.Ptyxis restore-window-size false
+# Fedora 44 - enable middle-button paste
+gsettings set org.gnome.desktop.interface gtk-enable-primary-paste true
 
 # commented out - too destructive
 #gsettings set org.gnome.shell favorite-apps "['org.mozilla.firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.TextEditor.desktop', 'org.gnome.Ptyxis.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Settings.desktop', 'org.gnome.Extensions.desktop']"
